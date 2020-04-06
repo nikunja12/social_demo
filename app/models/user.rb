@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   devise :omniauthable, :omniauth_providers => [:facebook,:linkedin,:google_oauth2]
+  has_many :posts 
+  has_many :comments
+  enum role: { user: "user", moderator: "moderator", admin: "admin" }
 
    def self.new_with_session(params, session)
        super.tap do |user|
